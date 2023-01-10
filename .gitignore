@@ -11,7 +11,7 @@
 .mtj.tmp/
 
 # Package Files #
-*.jar
+#*.jar #comment, because I want to commit the dependent libraries
 *.war
 *.nar
 *.ear
