@@ -17,14 +17,21 @@ public class ServletShopProductsList extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response ) throws IOException, ServletException {
 		PrintWriter w = response.getWriter();
 		w.println("<html>");
-		w.println("<body>");
+		w.println(" <body>");
 
-		w.println("<ol>");
-		for (String product : ShopProductsListDatabase.getProductsList()) {
-			w.println("<li>" + product + " </li>");
+		w.println("  <ol>");
+		for (Product product : ShopProductsListDatabase.getProductsList()) {
+			w.println("   <li>");
+		        w.println("    <form action='/online-shop/shop/cart?id=" + product.getId() + "' method='POST'>");
+			w.println("     <div>");
+			w.println(product);
+			w.println("      <button>Buy me</button>");
+			w.println("     </div>");
+			w.println("    </form>");
+			w.println("   </li>");
 		}
-		w.println("</ol>");
-		w.println("</body>");
+		w.println("  </ol>");
+		w.println(" </body>");
 		w.println("</html>");
 	}
 

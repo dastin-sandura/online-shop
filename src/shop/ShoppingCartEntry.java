@@ -1,8 +1,9 @@
 package shop;
 
 import shop.Product;
+import java.io.Serializable;
 
-public class ShoppingCartEntry {
+public class ShoppingCartEntry implements Serializable{
 	
 		Product product;
 

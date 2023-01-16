@@ -8,7 +8,7 @@ import shop.Product;
 
 public class ShopProductsListDatabase {
 
-	private static List<String> shopProducts;
+	private static List<Product> shopProducts;
 
 	private static Map<Integer, Product> shopProductsMap;
 
@@ -22,16 +22,18 @@ public class ShopProductsListDatabase {
 		
 	}
 
-	public static List<String> getProductsList() {
+	public static List<Product> getProductsList() {
 		
 		if(shopProducts == null ) {
-			shopProducts = new ArrayList<String>();	
-			shopProducts.add("1,Dog leash,5$");
-			shopProducts.add("2,Dog collar,4$");
-			shopProducts.add("3,Poop bags,10$");
+			shopProducts = new ArrayList<Product>();	
+			shopProducts.add(new Product(1,"Dog leash",5));
+			shopProducts.add(new Product(2,"Dog collar",4));
+			shopProducts.add(new Product(3,"Poop bags",10));
 		}
 		return shopProducts;
 	}
+
+	
 
 	public static Product getProductById(Integer id) {
 		populateShopProductsMap();
