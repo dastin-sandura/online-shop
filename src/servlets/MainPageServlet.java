@@ -12,7 +12,7 @@ import java.io.PrintWriter;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/")
+@WebServlet("/main")
 public class MainPageServlet extends HttpServlet {
 	
 	@Override
