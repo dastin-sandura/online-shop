@@ -43,16 +43,29 @@ public class ServletShoppingCart extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-		
+		String contextPath = req.getContextPath();
+
+		PrintWriter p = resp.getWriter();
+		p.println("<html lang=\"eng\">");
+
+		//Include bootstrap
+		p.println("<head>");
+		p.println("<link rel=\"stylesheet\" href=\"" + contextPath + "/css/bootstrap.min.css\"");
+		p.println("</head>");
+
 		Map<Integer, ShoppingCartEntry> shoppingCart = (Map<Integer, ShoppingCartEntry>)req.getSession().getAttribute("shopping-cart");
 		if (shoppingCart == null) {
 			shoppingCart = new HashMap<Integer, ShoppingCartEntry>();
 		}
 
-		resp.getWriter().println("Content of shopping cart stored in session with cookie:  " + req.getSession().getId());
+		p.println("<body>");
+		resp.getWriter().println("<p>Content of shopping cart stored in session with cookie:  </p>" + req.getSession().getId());
 		for (Integer key : shoppingCart.keySet()) {
-			resp.getWriter().println("" + key + shoppingCart.get(key));
+			resp.getWriter().println("<p>" + key + shoppingCart.get(key) + "</p>");
 		}
+		p.println("<script src=\"../js/bootstrap.min.js\"></script>");
+		p.println("</body>");
+		p.println("</html>");
 		
 
 	}
