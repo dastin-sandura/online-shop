@@ -1,10 +1,10 @@
-package shop;
+package shop.database;
 
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
-import shop.Product;
+import shop.domain.Product;
 
 public class ShopProductsListDatabase {
 
@@ -14,7 +14,7 @@ public class ShopProductsListDatabase {
 
 	private static void populateShopProductsMap(){
 		if(shopProductsMap == null) {
-			shopProductsMap = new HashMap<Integer, Product>();
+			shopProductsMap = new HashMap<>();
 			shopProductsMap.put(1, new Product(1, "Dog leash", 5));
 			shopProductsMap.put(2, new Product(2, "Dog collar", 4));
 			shopProductsMap.put(3, new Product(3, "Poop bags", 9));
@@ -25,7 +25,7 @@ public class ShopProductsListDatabase {
 	public static List<Product> getProductsList() {
 		
 		if(shopProducts == null ) {
-			shopProducts = new ArrayList<Product>();	
+			shopProducts = new ArrayList<>();
 			shopProducts.add(new Product(1,"Dog leash",5));
 			shopProducts.add(new Product(2,"Dog collar",4));
 			shopProducts.add(new Product(3,"Poop bags",10));
