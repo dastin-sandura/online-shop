@@ -24,4 +24,7 @@ hs_err_pid*
 
 #editing swap files
 *.swp
+
+#intelIJ IDEA specific dirs and files
 /.idea/
+*.iml
