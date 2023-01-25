@@ -1,5 +1,8 @@
 package servlets;
 
+import html.HtmlTemplateComponents;
+
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,7 +15,16 @@ import java.util.Locale;
 public class ServletHeaders extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		response.getOutputStream().println("Headers Servlet");
+		ServletOutputStream p = response.getOutputStream();
+		p.println("<html>");
+
+		//Include bootstrap
+		p.println("<head>");
+		p.println(HtmlTemplateComponents.getHtmlBootstrapImportLink(request.getContextPath()));
+		p.println("</head>");
+
+		p.println("<body>");
+		p.println("<h1>Headers Servlet</h1>");
 		Locale requestLocale = request.getLocale();
 		System.out.println("Request Locale display language: " + requestLocale.getDisplayLanguage());
 		System.out.println("Request Locale display name: " + requestLocale.getDisplayName());
@@ -40,7 +52,9 @@ public class ServletHeaders extends HttpServlet {
 				greeting = "Yo";
 		}
 
-		response.getOutputStream().println(greeting);
+		p.println("<p>" + greeting + "</p>");
+		p.println("</body>");
+		p.println("</html>");
 	}
 	
 	public static String str(){

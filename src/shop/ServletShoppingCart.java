@@ -5,8 +5,10 @@ import javax.servlet.*;
 import javax.servlet.annotation.*;
 import java.io.*;
 
-import shop.ShopProductsListDatabase;
-import shop.ShoppingCartEntry;
+import html.HtmlTemplateComponents;
+import shop.database.ShopProductsListDatabase;
+import shop.domain.Product;
+import shop.domain.ShoppingCartEntry;
 
 import java.util.*;
 
@@ -16,16 +18,16 @@ public class ServletShoppingCart extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		HttpSession s = req.getSession();
-		Map<Integer,ShoppingCartEntry> shoppingCart = (Map<Integer,ShoppingCartEntry>)s.getAttribute("shopping-cart");
+		Map<Integer, ShoppingCartEntry> shoppingCart = (Map<Integer,ShoppingCartEntry>)s.getAttribute("shopping-cart");
 		if (shoppingCart == null) {
-			shoppingCart = new HashMap<Integer, ShoppingCartEntry>();	
+			shoppingCart = new HashMap<>();
 		}
 		Integer productId = new Integer(req.getParameter("id"));
 		//a += req.getParameter("product");
 		ShoppingCartEntry entry = shoppingCart.get(productId);
-		
-		if (entry!=null) {	
-			entry.quantity++;
+
+		if (entry!=null) {
+			entry.setQuantity(entry.getQuantity()+1);
 		} else {
 			Product p = ShopProductsListDatabase.getProductById(productId);
 			if (p!=null) {
@@ -35,10 +37,19 @@ public class ServletShoppingCart extends HttpServlet {
 		s.setAttribute("shopping-cart", shoppingCart);
 
 		PrintWriter p = resp.getWriter();
+		p.println("<html>");
 
-		p.println("<html><body>");
+		//Include bootstrap
+		p.println("<head>");
+		p.println(HtmlTemplateComponents.getHtmlBootstrapImportLink(req.getContextPath()));
+		p.println("</head>");
+
+		p.println("<body>");
+
 		p.println("<p>Current state of shopping cart: " + shoppingCart + "</p>");
-		p.println("</body></html>");
+
+		p.println("</body>");
+		p.println("</html>");
 	}
 
 	@Override
@@ -50,7 +61,7 @@ public class ServletShoppingCart extends HttpServlet {
 
 		//Include bootstrap
 		p.println("<head>");
-		p.println("<link rel=\"stylesheet\" href=\"" + contextPath + "/css/bootstrap.min.css\"");
+		p.println(HtmlTemplateComponents.getHtmlBootstrapImportLink(contextPath));
 		p.println("</head>");
 
 		Map<Integer, ShoppingCartEntry> shoppingCart = (Map<Integer, ShoppingCartEntry>)req.getSession().getAttribute("shopping-cart");
@@ -66,9 +77,9 @@ public class ServletShoppingCart extends HttpServlet {
 		p.println("<script src=\"../js/bootstrap.min.js\"></script>");
 		p.println("</body>");
 		p.println("</html>");
-		
+
 
 	}
 
-	
+
 }

@@ -1,5 +1,8 @@
 package servlets;
 
+import html.HtmlTemplateComponents;
+
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +28,19 @@ public class ParamsServlet extends HttpServlet {
 
 		session.setAttribute("surname", surname);
 
-		resp.getOutputStream().println("Hallo " + name + " " + surname);
+		ServletOutputStream out = resp.getOutputStream();
+		out.println("<html>");
+
+		//Include bootstrap
+		out.println("<head>");
+		out.println(HtmlTemplateComponents.getHtmlBootstrapImportLink(req.getContextPath()));
+		out.println("</head>");
+
+		out.println("<body>");
+		
+		out.println("<p>" + "Hallo " + name + " " + surname + "</p>");
+
+		out.println("</body>");
+		out.println("</html>");
 	}
 }

@@ -1,6 +1,9 @@
 package shop;
 
-import shop.ShopProductsListDatabase;
+import html.HtmlTemplateComponents;
+import shop.database.ShopProductsListDatabase;
+import shop.domain.Product;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,24 +18,30 @@ public class ServletShopProductsList extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response ) throws IOException, ServletException {
-		PrintWriter w = response.getWriter();
-		w.println("<html>");
-		w.println(" <body>");
+		PrintWriter p = response.getWriter();
+		p.println("<html>");
 
-		w.println("  <ol>");
+		//Include bootstrap
+		p.println("<head>");
+		p.println(HtmlTemplateComponents.getHtmlBootstrapImportLink(request.getContextPath()));
+		p.println("</head>");
+
+		p.println(" <body>");
+
+		p.println("  <ol>");
 		for (Product product : ShopProductsListDatabase.getProductsList()) {
-			w.println("   <li>");
-		        w.println("    <form action='/online-shop/shop/cart?id=" + product.getId() + "' method='POST'>");
-			w.println("     <div>");
-			w.println(product);
-			w.println("      <button>Buy me</button>");
-			w.println("     </div>");
-			w.println("    </form>");
-			w.println("   </li>");
+			p.println("   <li>");
+		        p.println("    <form action='/online-shop/shop/cart?id=" + product.getId() + "' method='POST'>");
+			p.println("     <div>");
+			p.println(product);
+			p.println("      <button>Buy me</button>");
+			p.println("     </div>");
+			p.println("    </form>");
+			p.println("   </li>");
 		}
-		w.println("  </ol>");
-		w.println(" </body>");
-		w.println("</html>");
+		p.println("  </ol>");
+		p.println(" </body>");
+		p.println("</html>");
 	}
 
 }
