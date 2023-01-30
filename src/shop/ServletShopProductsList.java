@@ -27,6 +27,7 @@ public class ServletShopProductsList extends HttpServlet {
 		p.println("</head>");
 
 		p.println(" <body>");
+		p.println(HtmlTemplateComponents.getHtmlNavigationDropdown());
 
 		p.println("  <ol>");
 		for (Product product : ShopProductsListDatabase.getProductsList()) {
@@ -40,6 +41,8 @@ public class ServletShopProductsList extends HttpServlet {
 			p.println("   </li>");
 		}
 		p.println("  </ol>");
+
+		p.println(HtmlTemplateComponents.getBootstrapJavascriptImport(request.getContextPath()));
 		p.println(" </body>");
 		p.println("</html>");
 	}

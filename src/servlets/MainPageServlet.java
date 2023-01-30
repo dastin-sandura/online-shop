@@ -23,14 +23,24 @@ public class MainPageServlet extends HttpServlet {
         String contextPath = request.getContextPath();
 
         PrintWriter p = response.getWriter();
-        p.println("<html>");
-
-        //Include bootstrap
-        p.println("<head>");
-        p.println(HtmlTemplateComponents.getHtmlBootstrapImportLink(contextPath));
-        p.println("</head>");
-        p.println("<body>");
-
+        p.println(HtmlTemplateComponents.getStandardBeginningOfTheHtml(request.getContextPath()));
+//        //Include a dropdown which will show links after pressing the button
+//        p.println("<div class=\"dropdown\">");
+//        p.println(" <button class=\"btn btn-secondary dropdown-toggle\" type=\"button\" id=\"dropdownMenuButton\" " +
+//                "data-bs-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">");
+//        p.println("  Dropdown button");
+//        p.println(" </button>");
+//        p.println(" <div class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuButton\">");
+////        p.println("  <a class=\"dropdown-item\">Action</a>");
+////        p.println("  <a>");
+////        p.println("  <a>");
+//        for (String mapping : mappings) {
+//            p.println("<a class=\"dropdown-item\" href=\"http://localhost:8080" + contextPath + mapping + "\">" + mapping + "</a>");
+//        }
+//        p.println(" </div>");
+//
+//        p.println("</div>");
+        //end of dropdown button
         p.println("<ol>");
         for (String mapping : mappings) {
             p.println("<li><a href='http://localhost:8080" + contextPath + mapping + "'>" + mapping + "</a></li>");
@@ -42,8 +52,9 @@ public class MainPageServlet extends HttpServlet {
         //p.println("<li><a href='http://localhost:8080" + contextPath + "/session'>session</a></li>");
 
         p.println("</ol>");
-        p.println("</body>");
-        p.println("</html>");
+        //href=\"" + contextPath + "/css/bootstrap.min.css\"
+
+        p.println(HtmlTemplateComponents.getStandardEndOfTheHtml(request.getContextPath()));
     }
 
 }

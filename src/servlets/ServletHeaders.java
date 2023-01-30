@@ -16,14 +16,8 @@ public class ServletHeaders extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		ServletOutputStream p = response.getOutputStream();
-		p.println("<html>");
+		p.print(HtmlTemplateComponents.getStandardBeginningOfTheHtml(request.getContextPath()));
 
-		//Include bootstrap
-		p.println("<head>");
-		p.println(HtmlTemplateComponents.getHtmlBootstrapImportLink(request.getContextPath()));
-		p.println("</head>");
-
-		p.println("<body>");
 		p.println("<h1>Headers Servlet</h1>");
 		Locale requestLocale = request.getLocale();
 		System.out.println("Request Locale display language: " + requestLocale.getDisplayLanguage());
@@ -53,8 +47,8 @@ public class ServletHeaders extends HttpServlet {
 		}
 
 		p.println("<p>" + greeting + "</p>");
-		p.println("</body>");
-		p.println("</html>");
+
+		p.println(HtmlTemplateComponents.getStandardEndOfTheHtml(request.getContextPath()));
 	}
 	
 	public static String str(){

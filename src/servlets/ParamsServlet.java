@@ -29,18 +29,10 @@ public class ParamsServlet extends HttpServlet {
 		session.setAttribute("surname", surname);
 
 		ServletOutputStream out = resp.getOutputStream();
-		out.println("<html>");
+		out.print(HtmlTemplateComponents.getStandardBeginningOfTheHtml(req.getContextPath()));
 
-		//Include bootstrap
-		out.println("<head>");
-		out.println(HtmlTemplateComponents.getHtmlBootstrapImportLink(req.getContextPath()));
-		out.println("</head>");
-
-		out.println("<body>");
-		
 		out.println("<p>" + "Hallo " + name + " " + surname + "</p>");
 
-		out.println("</body>");
-		out.println("</html>");
+		out.println(HtmlTemplateComponents.getStandardEndOfTheHtml(req.getContextPath()));
 	}
 }

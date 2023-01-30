@@ -26,14 +26,7 @@ public class ServletContextUseCase extends HttpServlet {
 		int counterValueAfterServletExecution;
 		String contextAttributeName = "counter";
 		AtomicInteger counter = (AtomicInteger)context.getAttribute(contextAttributeName);
-		p.println("<html>");
-
-		//Include bootstrap
-		p.println("<head>");
-		p.println(HtmlTemplateComponents.getHtmlBootstrapImportLink(request.getContextPath()));
-		p.println("</head>");
-
-		p.println("<body>");
+		p.println(HtmlTemplateComponents.getStandardBeginningOfTheHtml(request.getContextPath()));
 
 		if (counter == null) {
 			p.println("attribute '"+ contextAttributeName +
@@ -63,10 +56,8 @@ public class ServletContextUseCase extends HttpServlet {
 
 		String message = "Servlet showing use of Servlet Context";
 		System.out.println(message);
-			p.print(message);
-
-		p.println("</body>");
-		p.println("</html>");
+		p.println("<p>" + message + "</p>");
+		p.println(HtmlTemplateComponents.getStandardEndOfTheHtml(request.getContextPath()));
 
 	}
 }

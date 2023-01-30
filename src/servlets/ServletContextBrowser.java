@@ -25,15 +25,9 @@ public class ServletContextBrowser extends HttpServlet {
 			ServletContext context = request.getServletContext();
 
 			PrintWriter p = response.getWriter();
-			p.println("<html>");
+			p.println(HtmlTemplateComponents.getStandardBeginningOfTheHtml(request.getContextPath()));
 
-			//Include bootstrap
-			p.println("<head>");
-			p.println(HtmlTemplateComponents.getHtmlBootstrapImportLink(request.getContextPath()));
-			p.println("</head>");
-
-			p.println("<body>");
-			p.println("<p>"+"Response from ServletServletContextBrowser servlet " + new Date().toString() + "</p>");
+			p.println("<p>"+"Response from ServletServletContextBrowser servlet " + new Date() + "</p>");
 
 			p.println("<p>"+"Request remote host: " + request.getRemoteHost() + "</p>");
 			p.println("<p>"+"Request remote port: " + request.getRemotePort() + "</p>");
@@ -66,7 +60,6 @@ public class ServletContextBrowser extends HttpServlet {
 			p.println("<p>"+"Minor version: " + context.getMinorVersion() + "</p>");
 			p.println("<p>"+"Server Info: " + context.getServerInfo() + "</p>");
 			p.println("<p>"+"Servlet Context Name: " + context.getServletContextName() + "</p>");
-			//TODO iterate over servlet registrations and see if method ServletRegistration.getMappings() can return addresses of every servlet
 			p.println("<p>"+"Servlet Registrations: " + context.getServletRegistrations() + "</p>");
 			p.println("<p>"+"Session cookie config: " + context.getSessionCookieConfig() + "</p>");
 			p.println("<p>"+"Virtual server name: " + context.getVirtualServerName() + "</p>");
@@ -81,9 +74,7 @@ public class ServletContextBrowser extends HttpServlet {
 				}
 			}
 			p.println("<p>"+ "</p>");
-
-			p.println("</body>");
-			p.println("</html>");
+			p.println(HtmlTemplateComponents.getStandardEndOfTheHtml(request.getContextPath()));
 
 			context.log("Let me know if this log is visible in the logs! :)");
 

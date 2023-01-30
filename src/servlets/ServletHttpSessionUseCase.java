@@ -19,19 +19,13 @@ import java.io.IOException;
 public class ServletHttpSessionUseCase extends HttpServlet {
 	
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse res) throws ServletException {
 		try {
 			PrintWriter p = res.getWriter();
-			p.println("<html>");
+			p.println(HtmlTemplateComponents.getStandardBeginningOfTheHtml(request.getContextPath()));
 
-			//Include bootstrap
-			p.println("<head>");
-			p.println(HtmlTemplateComponents.getHtmlBootstrapImportLink(req.getContextPath()));
-			p.println("</head>");
-
-			p.print("<body>");
 			p.println("<h1>" + "This is the Session use case" + "</h1>");
-			HttpSession session = req.getSession();
+			HttpSession session = request.getSession();
 			Integer counter = (Integer)session.getAttribute("incremental-attribute");
 			if(counter != null) {
 				counter+=1;
@@ -46,14 +40,13 @@ public class ServletHttpSessionUseCase extends HttpServlet {
 			Enumeration<String> sessionAttributes = session.getAttributeNames();
 
 
-			String attributeKey = "";
+			String attributeKey;
 			//attNames = sessionAttributes.elements();
 			while(sessionAttributes.hasMoreElements()) {
 				attributeKey = sessionAttributes.nextElement();
 				p.println("<p>" + attributeKey + ":" + session.getAttribute(attributeKey) + "</p>");
 			}
-			p.println("</body>");
-			p.println("</html>");
+			p.println(HtmlTemplateComponents.getStandardEndOfTheHtml(request.getContextPath()));
 		} catch (IOException ioe) {
 			System.out.println("Exception occured");
 		        System.out.println(ioe);

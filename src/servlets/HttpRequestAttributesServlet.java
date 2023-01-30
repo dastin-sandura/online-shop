@@ -16,14 +16,8 @@ public class HttpRequestAttributesServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         PrintWriter p = response.getWriter();
-        p.println("<html>");
+        p.println(HtmlTemplateComponents.getStandardBeginningOfTheHtml(request.getContextPath()));
 
-        //Include bootstrap
-        p.println("<head>");
-        p.println(HtmlTemplateComponents.getHtmlBootstrapImportLink(request.getContextPath()));
-        p.println("</head>");
-
-        p.println("<body>");
         System.out.println(request);
         p.println("<h1>Servlet, showing data contained in the HttpServletRequest object.</h1>");
         if (request.isAsyncStarted()) {
@@ -77,8 +71,7 @@ public class HttpRequestAttributesServlet extends HttpServlet {
         p.println("<p>request.isSecure()=" + request.isSecure() + "</p>");
         System.out.println(request.isSecure());
 
-        p.println("</body>");
-        p.println("</html>");
+        p.println(HtmlTemplateComponents.getStandardEndOfTheHtml(request.getContextPath()));
     }
 
 }
